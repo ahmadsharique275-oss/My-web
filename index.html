@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#1a1a2e" />
+
+  <title>Tense by Er. Sharique</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="bam.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Poppins:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0f0c29;
+      background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+      background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .font-bungee { font-family: 'Bungee', cursive; }
+    .font-hindi { font-family: 'Noto Sans Devana gari', sans-serif; }
+    .card {
+      background-color: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+    .btn { transition: all 0.3s ease; }
+    .main-menu-btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 20px rgba(138, 43, 226, 0.25);
+    }
+    .btn-primary { background: linear-gradient(45deg, #8A2BE2, #4B0082); }
+    .btn-secondary { background-color: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
+    .rules-content, .vocab-content {
+      max-height: 70vh;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #8A2BE2 #302b63;
+    }
+    /* 3D Title Style */
+    .title-3d {
+        color: #fde047;
+        text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+    }
+    /* 3D Name in Practice Mode */
+    .name-3d {
+        position: absolute;
+        top: 1.5rem;
+        right: 2rem;
+        font-size: 1.5rem;
+        color: #fde047;
+        opacity: 0.7;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.5), 2px 2px 3px rgba(0,0,0,0.5);
+    }
+    /* New Tense Chart Table Styles */
+    .tense-table-container {
+        overflow-x: auto; /* Enable horizontal scrolling on small screens */
+    }
+    .tense-table {
+        width: 100%;
+        min-width: 1200px; /* Force minimum width to encourage scrolling */
+        border-collapse: collapse;
+        font-size: 0.9rem;
+    }
+    .tense-table th, .tense-table td {
+        border: 1px solid rgba(138, 43, 226, 0.5);
+        padding: 12px;
+        text-align: left;
+        vertical-align: top;
+    }
+    .tense-table th {
+        background-color: rgba(75, 0, 130, 0.5);
+        color: #f5b971;
+        font-weight: bold;
+        text-align: center;
+        font-size: 1.1rem;
+    }
+    .tense-table .tense-category {
+        background-color: rgba(75, 0, 130, 0.5);
+        color: #f5b971;
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+    .tense-table td {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+    .tense-table .indication {
+        color: #a78bfa;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+    .tense-table ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .tense-table code {
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #fef08a;
+      display: inline-block;
+    }
+    .tense-table .example {
+        margin-top: 12px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(138, 43, 226, 0.3);
+    }
+    /* Quiz Styles */
+    .quiz-option { border: 2px solid transparent; transition: all 0.3s ease; }
+    .quiz-option:hover:not(:disabled) { border-color: #8A2BE2; }
+    .quiz-option.correct { background: linear-gradient(45deg, #16a34a, #22c55e) !important; color: white; border-color: #16a34a !important; }
+    .quiz-option.incorrect { background: linear-gradient(45deg, #dc2626, #ef4444) !important; color: white; border-color: #dc2626 !important; }
+  </style>
+</head>
+
+<body class="text-white flex items-center justify-center min-h-screen p-4">
+
+  <div id="app-container" class="w-full max-w-7xl mx-auto">
+
+    <div id="home-screen">
+      <div class="text-center">
+        <div class="w-32 h-32 mx-auto mb-4 flex items-center justify-center rounded-full border-4 border-violet-400 shadow-lg animate-pulse">
+          <i class="fa-solid fa-book-open text-6xl text-amber-300"></i>
+        </div>
+        <h1 class="font-bungee text-5xl md:text-6xl tracking-wider title-3d">
+          Tense by Er. Sharique
+        </h1>
+        <p class="text-gray-300 mt-4 mb-10 text-lg">Master English Tenses!</p>
+        <div class="space-y-5 max-w-sm mx-auto">
+          <button id="start-rules-btn" class="w-full py-4 text-xl font-bold rounded-lg shadow-lg btn btn-primary main-menu-btn flex items-center justify-center gap-3"><i class="fa-solid fa-book-sparkles"></i> Tense Chart</button>
+          <button id="start-vocab-btn" class="w-full py-4 text-xl font-bold rounded-lg shadow-lg btn btn-primary main-menu-btn flex items-center justify-center gap-3"><i class="fa-solid fa-spell-check"></i> Vocabulary</button>
+          <button id="start-practice-btn" class="w-full py-4 text-xl font-bold rounded-lg shadow-lg btn btn-primary main-menu-btn flex items-center justify-center gap-3"><i class="fa-solid fa-gamepad"></i> Practice Mode</button>
+          <button id="start-quiz-btn" class="w-full py-4 text-xl font-bold rounded-lg shadow-lg btn btn-primary main-menu-btn flex items-center justify-center gap-3"><i class="fa-solid fa-file-circle-question"></i> Quiz Mode</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="practice-screen" class="hidden">
+        <button class="back-btn mb-4 btn btn-secondary px-4 py-2 rounded-lg flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <div class="card rounded-2xl shadow-2xl p-6 md:p-8 text-center relative">
+            <h3 class="name-3d font-bungee">Sharique</h3>
+            <h2 class="text-4xl font-bungee text-amber-300 tracking-wider mb-2" style="text-shadow: 2px 2px 5px rgba(0,0,0,0.5);">Practice Mode</h2>
+            <div class="text-xl mb-4 text-white">Score: <span id="practice-score" class="font-bold text-violet-300">0</span></div>
+            <div class="space-y-6">
+                <div class="bg-gray-800 p-4 rounded-lg shadow-inner">
+                    <p id="practice-hindi-text" class="text-xl md:text-2xl text-violet-300 font-hindi">प्रश्न यहाँ आएगा...</p>
+                </div>
+                <div id="hard-word-display" class="hidden bg-gray-900 bg-opacity-50 p-3 rounded-lg text-base text-left border border-gray-700"></div>
+                <input type="text" id="practice-input" placeholder="English translation..." class="w-full p-4 bg-gray-900 border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 text-lg">
+                <div id="practice-feedback" class="text-lg font-bold h-12"></div>
+                <button id="practice-submit-btn" class="w-full py-4 text-xl font-bold rounded-lg shadow-lg btn btn-primary">Check Answer</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="quiz-screen" class="hidden">
+        <button class="back-btn mb-4 btn btn-secondary px-4 py-2 rounded-lg flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <div id="quiz-container" class="card rounded-2xl shadow-2xl p-6 md:p-8 text-center"></div>
+    </div>
+
+    <div id="vocab-screen" class="hidden">
+        <button class="back-btn mb-4 btn btn-secondary px-4 py-2 rounded-lg flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <div class="card rounded-2xl shadow-2xl p-6 md:p-8">
+            <h2 class="text-3xl font-bold mb-6 text-center text-amber-300 font-hindi">शब्दकोश (Vocabulary)</h2>
+            <div class="relative mb-6">
+                <input type="text" id="vocab-search" placeholder="Search for a word..." class="w-full p-4 pl-10 bg-gray-900 border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 text-lg">
+                <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+            <div id="vocab-list-container" class="vocab-content pr-2"></div>
+        </div>
+    </div>
+    
+    <div id="rules-screen" class="hidden">
+        <button class="back-btn mb-4 btn btn-secondary px-4 py-2 rounded-lg flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <div class="card rounded-2xl shadow-2xl p-6 md:p-8">
+            <h2 class="text-3xl font-bungee mb-6 text-center text-amber-300">Tense Chart</h2>
+            <div id="rules-table-container" class="tense-table-container"></div>
+        </div>
+    </div>
+  </div>
+
+<script>
+// --- DATA ---
+const practiceQuestions = [
+    { hindi: "राम आम खाता है।", english: "Ram eats a mango.", hardWords: [{ hindi: "आम", english: "Mango" }] }, { hindi: "सूर्य पूर्व से निकलता है।", english: "The sun rises in the east.", hardWords: [{ hindi: "सूर्य", english: "Sun" }, { hindi: "पूर्व", english: "East" }] }, { hindi: "बच्चे मैदान में क्रिकेट खेल रहे हैं।", english: "The children are playing cricket in the field.", hardWords: [{ hindi: "मैदान", english: "Field" }] }, { hindi: "उसने अपना काम पूरा कर लिया है।", english: "He has completed his work.", hardWords: [{ hindi: "पूरा", english: "Completed" }] }, { hindi: "वे सुबह से इस परियोजना पर काम कर रहे हैं।", english: "They have been working on this project since morning.", hardWords: [{ hindi: "परियोजना", english: "Project" }] }, { hindi: "उसने कल मुझे एक पत्र लिखा।", english: "He wrote me a letter yesterday.", hardWords: [{ hindi: "पत्र", english: "Letter" }] }, { hindi: "जब मैं घर पहुंचा, वह सो रही थी।", english: "When I reached home, she was sleeping.", hardWords: [{ hindi: "पहुंचा", english: "Reached" }] }, { hindi: "मेरे आने से पहले ट्रेन जा चुकी थी।", english: "The train had left before I arrived.", hardWords: [{ hindi: "पहले", english: "Before"}] }, { hindi: "वे दो घंटे से फिल्म देख रहे थे।", english: "They had been watching the movie for two hours." }, { hindi: "मैं कल तुमसे मिलूंगा।", english: "I will meet you tomorrow." }, { hindi: "वह इस समय पढ़ रहा होगा।", english: "He will be studying at this time." }, { hindi: "शाम तक वह घर पहुँच चुका होगा।", english: "He will have reached home by evening.", hardWords: [{ hindi: "शाम तक", english: "By evening"}] }, { hindi: "हमारा देश 1947 में आज़ाद हुआ।", english: "Our country became independent in 1947.", hardWords: [{ hindi: "आज़ाद", english: "Independent" }, { hindi: "देश", english: "Country" }] }, { hindi: "उन्होंने प्रतियोगिता जीत ली है।", english: "They have won the competition.", hardWords: [{ hindi: "प्रतियोगिता", english: "Competition" }] }, { hindi: "वह अपने भविष्य के बारे में चिंतित है।", english: "He is worried about his future.", hardWords: [{ hindi: "भविष्य", english: "Future" }, { hindi: "चिंतित", english: "Worried" }] }, { hindi: "छात्रों ने एक व्यापक परियोजना प्रस्तुत की।", english: "The students presented a comprehensive project.", hardWords: [{ hindi: "व्यापक", english: "Comprehensive" }, { hindi: "प्रस्तुत", english: "Presented" }] }, { hindi: "यह एक महत्वपूर्ण निर्णय होगा।", english: "This will be an important decision.", hardWords: [{ hindi: "महत्वपूर्ण", english: "Important" }, { hindi: "निर्णय", english: "Decision" }] }, { hindi: "उसने एक साहसिक कदम उठाया।", english: "He took a courageous step.", hardWords: [{ hindi: "साहसिक", english: "Courageous" }, { hindi: "कदम", english: "Step" }] }, { hindi: "यह अविश्वसनीय लगता है।", english: "It sounds unbelievable.", hardWords: [{ hindi: "अविश्वसनीय", english: "Unbelievable" }] }, { hindi: "क्या आप मेरी मदद कर सकते हैं?", english: "Can you help me?", hardWords: [{ hindi: "मदद", english: "Help" }] }, { hindi: "मुझे यह किताब पसंद है।", english: "I like this book.", hardWords: [{ hindi: "पसंद", english: "Like" }] }, { hindi: "सरकार नई नीतियां बना रही है।", english: "The government is making new policies.", hardWords: [{ hindi: "सरकार", english: "Government" }, { hindi: "नीतियां", english: "Policies" }] }, { hindi: "वह बहुत अच्छा गाती है।", english: "She sings very well." }, { hindi: "कृपया दरवाज़ा बंद कर दो।", english: "Please close the door.", hardWords: [{ hindi: "कृपया", english: "Please" }, { hindi: "दरवाज़ा", english: "Door" }] }, { hindi: "मैं यह भाषा सीख रहा हूँ।", english: "I am learning this language.", hardWords: [{ hindi: "भाषा", english: "Language" }, { hindi: "सीखना", english: "To learn" }] }, { hindi: "ईमानदारी सबसे अच्छी नीति है।", english: "Honesty is the best policy.", hardWords: [{ hindi: "ईमानदारी", english: "Honesty" }, { hindi: "नीति", english: "Policy" }] }, { hindi: "हम कल एक फिल्म देखेंगे।", english: "We will watch a movie tomorrow." }, { hindi: "क्या बारिश हो रही है?", english: "Is it raining?" }, { hindi: "मैंने अपना नाश्ता कर लिया है।", english: "I have had my breakfast.", hardWords: [{ hindi: "नाश्ता", english: "Breakfast" }] }, { hindi: "वह सुबह से तुम्हारा इंतज़ार कर रही है।", english: "She has been waiting for you since morning.", hardWords: [{ hindi: "इंतज़ार", english: "Waiting" }] }
+];
+
+const vocabularyData = [
+    {word:"आप",translation:"You"},{word:"मैं",translation:"I/Me"},{word:"हम",translation:"We/Us"},{word:"वह",translation:"He/She/That"},{word:"वे",translation:"They/Those"},{word:"यह",translation:"It/This"},{word:"ये",translation:"These"},{word:"क्या",translation:"What"},{word:"कौन",translation:"Who"},{word:"कहाँ",translation:"Where"},{word:"कब",translation:"When"},{word:"क्यों",translation:"Why"},{word:"कैसे",translation:"How"},{word:"हाँ",translation:"Yes"},{word:"नहीं",translation:"No"},{word:"नाम",translation:"Name"},{word:"आदमी",translation:"Man"},{word:"औरत",translation:"Woman"},{word:"लड़का",translation:"Boy"},{word:"लड़की",translation:"Girl"},{word:"दोस्त",translation:"Friend"},{word:"परिवार",translation:"Family"},{word:"घर",translation:"Home/House"},{word:"स्कूल",translation:"School"},{word:"शहर",translation:"City"},{word:"देश",translation:"Country"},{word:"दुनिया",translation:"World"},{word:"काम",translation:"Work"},{word:"आज",translation:"Today"},{word:"कल",translation:"Tomorrow/Yesterday"},{word:"दिन",translation:"Day"},{word:"रात",translation:"Night"},{word:"सुबह",translation:"Morning"},{word:"शाम",translation:"Evening"},{word:"समय",translation:"Time"},{word:"साल",translation:"Year"},{word:"चीज़",translation:"Thing"},{word:"प्यार",translation:"Love"},{word:"नफ़रत",translation:"Hate"},{word:"खुशी",translation:"Happiness"},{word:"दुःख",translation:"Sorrow"},{word:"जीवन",translation:"Life"},{word:"मौत",translation:"Death"},{word:"रास्ता",translation:"Way/Path"},{word:"सवाल",translation:"Question"},{word:"जवाब",translation:"Answer"},{word:"किताब",translation:"Book"},{word:"कलम",translation:"Pen"},{word:"पानी",translation:"Water"},{word:"हवा",translation:"Air"},{word:"आग",translation:"Fire"},{word:"खाना",translation:"Food"},{word:"फल",translation:"Fruit"},{word:"सब्ज़ी",translation:"Vegetable"},{word:"पेड़",translation:"Tree"},{word:"जानवर",translation:"Animal"},{word:"अच्छा",translation:"Good"},{word:"बुरा",translation:"Bad"},{word:"बड़ा",translation:"Big"},{word:"छोटा",translation:"Small"},{word:"नया",translation:"New"},{word:"पुराना",translation:"Old"},{word:"सुंदर",translation:"Beautiful"},{word:"बदसूरत",translation:"Ugly"},{word:"सही",translation:"Right/Correct"},{word:"गलत",translation:"Wrong"},{word:"आसान",translation:"Easy"},{word:"मुश्किल",translation:"Difficult"},{word:"गरम",translation:"Hot"},{word:"ठंडा",translation:"Cold"},{word:"अमीर",translation:"Rich"},{word:"गरीब",translation:"Poor"},{word:"आना",translation:"To come"},{word:"जाना",translation:"To go"},{word:"करना",translation:"To do"},{word:"होना",translation:"To be"},{word:"कहना",translation:"To say/tell"},{word:"देखना",translation:"To see/watch"},{word:"सुनना",translation:"To hear/listen"},{word:"बोलना",translation:"To speak"},{word:"पढ़ना",translation:"To read"},{word:"लिखना",translation:"To write"},{word:"खाना",translation:"To eat"},{word:"पीना",translation:"To drink"},{word:"सोना",translation:"To sleep"},{word:"चलना",translation:"To walk"},{word:"दौड़ना",translation:"To run"},{word:"देना",translation:"To give"},{word:"लेना",translation:"To take"},{word:"बनाना",translation:"To make"},{word:"सोचना",translation:"To think"},{word:"जानना",translation:"To know"},{word:"समझना",translation:"To understand"},{word:"पूछना",translation:"To ask"},{word:"बताना",translation:"To tell"},{word:"रखना",translation:"To keep"},{word:"खोलना",translation:"To open"},{word:"बंद करना",translation:"To close"},{word:"जीतना",translation:"To win"},{word:"हारना",translation:"To lose"},{word:"प्यार करना",translation:"To love"},{word:"मदद करना",translation:"To help"},{word:"इंतज़ार करना",translation:"To wait"},{word:"शुरू करना",translation:"To start"},{word:"खत्म करना",translation:"To finish"}
+    // ... (rest of the vocabulary data)
+];
+const tenseData=[{category:"PRESENT TENSE",tenses:[{name:"Simple Present",indication:"ता है, ती है, ते हैं",structures:[{type:"(+)",formula:"Subject + V1(+s/es) + Object"},{type:"(-)",formula:"Subject + do/does + not + V1 + Object"},{type:"(?)",formula:"Do/Does + Subject + V1 + Object?"}],examples:[{hindi:"वह स्कूल जाता है।",english:"He goes to school."}]},{name:"Present Continuous",indication:"रहा है, रही है, रहे हैं",structures:[{type:"(+)",formula:"Subject + is/am/are + V1+ing + Object"},{type:"(-)",formula:"Subject + is/am/are + not + V1+ing + Object"},{type:"(?)",formula:"Is/Am/Are + Subject + V1+ing + Object?"}],examples:[{hindi:"मैं खेल रहा हूँ।",english:"I am playing."}]},{name:"Present Perfect",indication:"चुका है, चुकी है, लिया है",structures:[{type:"(+)",formula:"Subject + has/have + V3 + Object"},{type:"(-)",formula:"Subject + has/have + not + V3 + Object"},{type:"(?)",formula:"Has/Have + Subject + V3 + Object?"}],examples:[{hindi:"उसने काम कर लिया है।",english:"He has done the work."}]},{name:"Present Perfect Continuous",indication:"से रहा है, से रही है",structures:[{type:"(+)",formula:"Subject + has/have + been + V1+ing + Object + for/since"},{type:"(-)",formula:"Subject + has/have + not + been + V1+ing + Object + for/since"},{type:"(?)",formula:"Has/Have + Subject + been + V1+ing + Object + for/since?"}],examples:[{hindi:"वह सुबह से पढ़ रहा है।",english:"He has been studying since morning."}]}]},{category:"PAST TENSE",tenses:[{name:"Simple Past",indication:"आ, या, ई, ता था",structures:[{type:"(+)",formula:"Subject + V2 + Object"},{type:"(-)",formula:"Subject + did + not + V1 + Object"},{type:"(?)",formula:"Did + Subject + V1 + Object?"}],examples:[{hindi:"वह कल दिल्ली गया।",english:"He went to Delhi yesterday."}]},{name:"Past Continuous",indication:"रहा था, रही थी",structures:[{type:"(+)",formula:"Subject + was/were + V1+ing + Object"},{type:"(-)",formula:"Subject + was/were + not + V1+ing + Object"},{type:"(?)",formula:"Was/Were + Subject + V1+ing + Object?"}],examples:[{hindi:"वह सो रही थी।",english:"She was sleeping."}]},{name:"Past Perfect",indication:"चुका था, चुकी थी",structures:[{type:"(+)",formula:"Subject + had + V3 + Object"},{type:"(-)",formula:"Subject + had + not + V3 + Object"},{type:"(?)",formula:"Had + Subject + V3 + Object?"}],examples:[{hindi:"वह जा चुका था।",english:"He had gone."}]},{name:"Past Perfect Continuous",indication:"से रहा था, से रही थी",structures:[{type:"(+)",formula:"Subject + had + been + V1+ing + Object + for/since"},{type:"(-)",formula:"Subject + had + not + been + V1+ing + Object + for/since"},{type:"(?)",formula:"Had + Subject + been + V1+ing + Object + for/since?"}],examples:[{hindi:"वह दो घंटे से खेल रहा था।",english:"He had been playing for two hours."}]}]},{category:"FUTURE TENSE",tenses:[{name:"Simple Future",indication:"गा, गी, गे",structures:[{type:"(+)",formula:"Subject + will/shall + V1 + Object"},{type:"(-)",formula:"Subject + will/shall + not + V1 + Object"},{type:"(?)",formula:"Will/Shall + Subject + V1 + Object?"}],examples:[{hindi:"मैं कल तुमसे मिलूंगा।",english:"I will meet you tomorrow."}]},{name:"Future Continuous",indication:"रहा होगा, रही होगी",structures:[{type:"(+)",formula:"Subject + will be + V1+ing + Object"},{type:"(-)",formula:"Subject + will not be + V1+ing + Object"},{type:"(?)",formula:"Will/Shall + Subject + be + V1+ing + Object?"}],examples:[{hindi:"वह खेल रहा होगा।",english:"He will be playing."}]},{name:"Future Perfect",indication:"चुका होगा, चुकी होगी",structures:[{type:"(+)",formula:"Subject + will have + V3 + Object"},{type:"(-)",formula:"Subject + will not have + V3 + Object"},{type:"(?)",formula:"Will/Shall + Subject + have + V3 + Object?"}],examples:[{hindi:"वह जा चुका होगा।",english:"He will have gone."}]},{name:"Future Perfect Continuous",indication:"से रहा होगा, से रही होगी",structures:[{type:"(+)",formula:"Subject + will have been + V1+ing + Object + for/since"},{type:"(-)",formula:"Subject + will not have been + V1+ing + Object + for/since"},{type:"(?)",formula:"Will + Subject + have been + V1+ing + Object + for/since?"}],examples:[{hindi:"वह दो घंटे से पढ़ रहा होगा।",english:"He will have been studying for two hours."}]}]}];
+
+// --- APPLICATION LOGIC ---
+document.addEventListener("DOMContentLoaded", () => {
+    const allPracticeQuestions = [];
+    while (allPracticeQuestions.length < 5000) { allPracticeQuestions.push(...practiceQuestions); }
+    const shuffledQuestions = [...allPracticeQuestions].sort(() => Math.random() - 0.5);
+    
+    const allVocabularyData = [];
+    while (allVocabularyData.length < 3000) { allVocabularyData.push(...vocabularyData); }
+    const shuffledVocabulary = [...allVocabularyData].sort(() => Math.random() - 0.5);
+
+    const screens = { home: document.getElementById('home-screen'), rules: document.getElementById('rules-screen'), vocab: document.getElementById('vocab-screen'), practice: document.getElementById('practice-screen'), quiz: document.getElementById('quiz-screen') };
+    const elements = {
+        startRulesBtn: document.getElementById('start-rules-btn'), startVocabBtn: document.getElementById('start-vocab-btn'),
+        startPracticeBtn: document.getElementById('start-practice-btn'), startQuizBtn: document.getElementById('start-quiz-btn'),
+        rulesTableContainer: document.getElementById('rules-table-container'), vocabListContainer: document.getElementById('vocab-list-container'),
+        vocabSearchInput: document.getElementById('vocab-search'), practiceHindiText: document.getElementById('practice-hindi-text'),
+        practiceInput: document.getElementById('practice-input'), practiceFeedback: document.getElementById('practice-feedback'),
+        practiceSubmitBtn: document.getElementById('practice-submit-btn'), practiceScoreEl: document.getElementById('practice-score'),
+        hardWordDisplay: document.getElementById('hard-word-display'), quizContainer: document.getElementById('quiz-container'),
+        backBtns: document.querySelectorAll('.back-btn'),
+    };
+
+    let currentPracticeIndex = 0, practiceScore = 0, currentQuizIndex = 0, quizScore = 0, quizQuestions = [];
+
+    const showScreen = (screenName) => {
+        Object.values(screens).forEach(screen => screen.classList.add('hidden'));
+        screens[screenName]?.classList.remove('hidden');
+    };
+
+    const generateTenseTable = () => {
+        let tableHTML = '<table class="tense-table">';
+        // Table Header
+        tableHTML += '<thead><tr><th>Tense</th><th>Simple</th><th>Continuous</th><th>Perfect</th><th>Perfect Continuous</th></tr></thead>';
+        // Table Body
+        tableHTML += '<tbody>';
+        tenseData.forEach(tenseCategory => {
+            tableHTML += `<tr><td class="tense-category">${tenseCategory.category}</td>`;
+            for (let i = 0; i < 4; i++) {
+                const tense = tenseCategory.tenses[i];
+                tableHTML += '<td>';
+                if (tense) {
+                    tableHTML += `<div class="indication font-hindi">${tense.indication}</div>`;
+                    tableHTML += '<ul>';
+                    tense.structures.forEach(s => {
+                        tableHTML += `<li>${s.type} <code>${s.formula}</code></li>`;
+                    });
+                    tableHTML += '</ul>';
+                    tableHTML += '<div class="example">';
+                    tense.examples.forEach(e => {
+                        tableHTML += `<p class="font-hindi">${e.hindi}</p><p>${e.english}</p>`;
+                    });
+                    tableHTML += '</div>';
+                }
+                tableHTML += '</td>';
+            }
+            tableHTML += '</tr>';
+        });
+        tableHTML += '</tbody></table>';
+        elements.rulesTableContainer.innerHTML = tableHTML;
+    };
+    
+    const renderVocabulary = (data) => {
+        elements.vocabListContainer.innerHTML = `<table class="w-full text-left"><thead><tr class="text-amber-300 border-b-2 border-amber-500"><th class="p-2">Hindi</th><th class="p-2">English</th></tr></thead><tbody>${data.map(v => `<tr class="border-b border-gray-700"><td class="p-2 font-hindi">${v.word}</td><td class="p-2">${v.translation}</td></tr>`).join('')}</tbody></table>`;
+    };
+
+    const handleVocabSearch = () => {
+        const searchTerm = elements.vocabSearchInput.value.toLowerCase();
+        renderVocabulary(shuffledVocabulary.filter(v => v.word.toLowerCase().includes(searchTerm) || v.translation.toLowerCase().includes(searchTerm)));
+    };
+
+    const startPracticeMode = () => {
+        currentPracticeIndex = 0; practiceScore = 0;
+        elements.practiceScoreEl.textContent = practiceScore;
+        showPracticeQuestion(); showScreen('practice');
+    };
+
+    const showPracticeQuestion = () => {
+        if (currentPracticeIndex >= shuffledQuestions.length) { currentPracticeIndex = 0; shuffledQuestions.sort(() => Math.random() - 0.5); }
+        const question = shuffledQuestions[currentPracticeIndex];
+        elements.practiceHindiText.textContent = question.hindi;
+        elements.practiceInput.value = ''; elements.practiceFeedback.innerHTML = '';
+        elements.practiceInput.disabled = false; elements.practiceSubmitBtn.disabled = false;
+        elements.practiceInput.focus();
+        if (question.hardWords?.length > 0) {
+            elements.hardWordDisplay.innerHTML = question.hardWords.map(w => `<p class="text-gray-300"><span class="font-bold font-hindi text-violet-300">${w.hindi}:</span> ${w.english}</p>`).join('');
+            elements.hardWordDisplay.classList.remove('hidden');
+        } else {
+            elements.hardWordDisplay.classList.add('hidden');
+        }
+    };
+
+    const checkPracticeAnswer = () => {
+        elements.practiceInput.disabled = true; elements.practiceSubmitBtn.disabled = true;
+        const cleanText = (text) => text.trim().toLowerCase().replace(/[.,?]/g, '');
+        const userAnswer = cleanText(elements.practiceInput.value);
+        const originalCorrectAnswer = shuffledQuestions[currentPracticeIndex].english;
+        const correctAnswer = cleanText(originalCorrectAnswer);
+        if (userAnswer === correctAnswer) {
+            practiceScore += 2;
+            elements.practiceFeedback.innerHTML = `<span class="text-green-400">सही जवाब! ✅ (+2 अंक)</span>`;
+            setTimeout(() => { currentPracticeIndex++; showPracticeQuestion(); }, 1500);
+        } else {
+            practiceScore -= 1;
+            elements.practiceFeedback.innerHTML = `<span class="text-red-400">गलत जवाब! ❌ (-1 अंक)</span> <br> <span class="text-sm">सही जवाब:</span> <span class="text-amber-300 font-bold">${originalCorrectAnswer}</span>`;
+            setTimeout(() => { currentPracticeIndex++; showPracticeQuestion(); }, 3000);
+        }
+        elements.practiceScoreEl.textContent = practiceScore;
+    };
+
+    const startQuizMode = () => {
+        currentQuizIndex = 0; quizScore = 0;
+        quizQuestions = [...shuffledQuestions].sort(() => Math.random() - 0.5).slice(0, 1000);
+        showQuizQuestion(); showScreen('quiz');
+    };
+
+    const showQuizQuestion = () => {
+        if (currentQuizIndex >= quizQuestions.length) { showQuizResults(); return; }
+        const question = quizQuestions[currentQuizIndex];
+        const correctAnswerText = question.english;
+        const options = [correctAnswerText];
+        while (options.length < 4) {
+            const randomQ = shuffledQuestions[Math.floor(Math.random() * shuffledQuestions.length)];
+            if (!options.includes(randomQ.english)) { options.push(randomQ.english); }
+        }
+        const shuffledOptions = options.sort(() => Math.random() - 0.5);
+        elements.quizContainer.innerHTML = `
+            <div class="space-y-6"><div class="flex justify-between items-center"><h3 class="text-2xl font-bold text-amber-300">Quiz Mode</h3><p class="text-lg">Score: <span class="font-bold text-violet-300">${quizScore}</span></p></div><p class="text-gray-300">Question ${currentQuizIndex + 1} of ${quizQuestions.length}</p><div class="bg-gray-800 p-5 rounded-lg shadow-inner"><p class="text-2xl text-violet-300 font-hindi">${question.hindi}</p></div><div id="quiz-options" class="grid grid-cols-1 md:grid-cols-2 gap-4">${shuffledOptions.map(option => `<button class="quiz-option w-full p-4 text-lg rounded-lg btn btn-secondary text-left">${option}</button>`).join('')}</div><div id="quiz-feedback" class="text-lg font-bold h-8"></div></div>`;
+        document.querySelectorAll('.quiz-option').forEach(button => button.addEventListener('click', handleQuizAnswer));
+    };
+
+    const handleQuizAnswer = (event) => {
+        const selectedBtn = event.target;
+        const selectedAnswer = selectedBtn.textContent;
+        const correctAnswer = quizQuestions[currentQuizIndex].english;
+        const feedbackEl = document.getElementById('quiz-feedback');
+        document.querySelectorAll('.quiz-option').forEach(btn => {
+            btn.disabled = true;
+            if (btn.textContent === correctAnswer) { btn.classList.add('correct'); }
+        });
+        if (selectedAnswer === correctAnswer) {
+            quizScore++;
+            feedbackEl.innerHTML = `<span class="text-green-400">Correct! ✅</span>`;
+        } else {
+            selectedBtn.classList.add('incorrect');
+            feedbackEl.innerHTML = `<span class="text-red-400">Wrong! ❌</span>`;
+        }
+        setTimeout(() => { currentQuizIndex++; showQuizQuestion(); }, 2000);
+    };
+
+    const showQuizResults = () => {
+        elements.quizContainer.innerHTML = `
+            <div class="space-y-6 text-center"><h3 class="text-4xl font-bungee text-amber-300">Quiz Completed!</h3><p class="text-2xl">Your Final Score: <span class="font-bold text-violet-300">${quizScore} / ${quizQuestions.length}</span></p><button id="restart-quiz-btn" class="w-full max-w-sm mx-auto py-4 text-xl font-bold rounded-lg shadow-lg btn btn-primary">Try Again</button></div>`;
+        document.getElementById('restart-quiz-btn').addEventListener('click', startQuizMode);
+    };
+    
+    elements.startRulesBtn.addEventListener('click', () => { generateTenseTable(); showScreen('rules'); });
+    elements.startVocabBtn.addEventListener('click', () => { renderVocabulary(shuffledVocabulary); showScreen('vocab'); });
+    elements.startPracticeBtn.addEventListener('click', startPracticeMode);
+    elements.startQuizBtn.addEventListener('click', startQuizMode);
+    elements.backBtns.forEach(btn => btn.addEventListener('click', () => showScreen('home')));
+    elements.vocabSearchInput.addEventListener('input', handleVocabSearch);
+    elements.practiceSubmitBtn.addEventListener('click', checkPracticeAnswer);
+    elements.practiceInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !elements.practiceSubmitBtn.disabled) checkPracticeAnswer();
+    });
+});
+</script>
+</body>
+</html>
